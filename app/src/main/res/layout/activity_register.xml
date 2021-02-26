@@ -1,126 +1,142 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:context=".register">
+    android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        app:layout_constraintVertical_bias="0.078" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="214dp"
-        android:layout_height="28dp"
-        android:text="REGISTERATION FORM"
-        android:textColor="#59A869"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:foregroundGravity="center"
+            android:gravity="center_horizontal"
+            android:text="TIC-TAC-TOE"
+            android:textSize="15sp"
+            android:textStyle="bold"></TextView>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="26dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        <ImageView
+            android:id="@+id/registerFaceIcon"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/heading"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/faceicon">
+        </ImageView>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="FULL NAME"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/registerPageRegisterTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/registerFaceIcon"
+            android:layout_marginTop="30dp"
+            android:foregroundGravity="center"
+            android:gravity="center_horizontal"
+            android:text="REGISTER"
+            android:textSize="25sp"
+            android:textStyle="bold"></TextView>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintVertical_bias="0.088" />
+        <EditText
+            android:id="@+id/registerUserFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registerPageRegisterTittle"
+            android:layout_marginTop="30dp"
+            android:hint="Full Name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+        </EditText>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        <EditText
+            android:id="@+id/registerUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/registerUserFullName"
+            android:layout_marginTop="25dp"
+            android:hint="Username"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+        </EditText>
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
-        app:layout_constraintVertical_bias="0.124" />
+        <EditText
+            android:id="@+id/registerUserEmailId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registerUsername"
+            android:layout_marginTop="25dp"
+            android:hint="Email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="textEmailAddress">
+        </EditText>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have account !"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.454" />
+        <EditText
+            android:id="@+id/registerUserEmailPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registerUserEmailId"
+            android:layout_marginTop="25dp"
+            android:hint="Password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="textPassword">
+        </EditText>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="88dp"
-        android:layout_height="37dp"
-        android:text="login"
-        android:textColor="#2A41BD"
-        android:textColorLink="#FFFFFF"
-        android:textSize="14sp"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.448" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/registerPageToLoginText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/registerUserEmailPassword"
+            android:gravity="center_horizontal"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="32dp"
+            android:text="If already have account"
+            android:textSize="15sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/registerPageLoginLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/registerUserEmailPassword"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="30dp"
+            android:linksClickable="true"
+            android:onClick="openLoginPage"
+            android:text="login"
+            android:textColor="#B01646A5"
+            android:textSize="15sp"
+            android:textStyle="bold"></TextView>
+
+        <Button
+            android:id="@+id/userButtonToRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/registerPageLoginLink"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center"
+            android:onClick="registerUserFirebase"
+            android:text="REGISTER"
+            android:textColor="@color/white"
+            app:backgroundTint="#8BC34A"></Button>
+
+        <ProgressBar
+            android:id="@+id/registerProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userButtonToRegister"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:visibility="invisible"></ProgressBar>
+
+    </RelativeLayout>
+
+</ScrollView>
