@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="#FFFFFF"
+        android:background="#874343"
         android:backgroundTint="@color/black">
 
         <TextView
@@ -22,18 +22,16 @@
             android:text="TIC-TAC-TOE"
             android:textColor="#CEFFFFFF"
             android:textSize="25sp"
-            android:textStyle="bold">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
-        <ImageView
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/StartingPageTicTacToeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/heading"
+            android:layout_below="@+id/heading"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:foregroundGravity="center_horizontal"
-            android:src="@drawable/imagetictactoe"></ImageView>
+            android:layout_marginTop="28dp"
+            android:src="@drawable/a"></pl.droidsonroids.gif.GifImageView>
 
         <Button
             android:id="@+id/registerButtonWelcomePage"
@@ -64,11 +62,11 @@
             android:id="@+id/logoutButtonWelcomePage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/loginButtonWelcomePage"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="LOGOUT"
-            android:onClick="userLogout"></Button>
+            android:onClick="userLogout"
+            android:text="LOGOUT"></Button>
 
     </RelativeLayout>
 

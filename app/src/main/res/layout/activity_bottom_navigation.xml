@@ -20,7 +20,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="8l0dp"
+        android:layout_height="80dp"
         app:backgroundTint="#FF9800"
         app:itemIconTint="#805E27B1"
         app:itemTextColor="@color/tab_item"
