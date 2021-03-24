@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/userProfileVerificationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="EMAIL NOT VERIFIED"
+                android:layout_marginTop="40dp"
+                android:visibility="invisible"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/verifyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userProfileVerificationText"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Verify now"
+                android:visibility="invisible"
+                app:backgroundTint="#4CAF50">
+
+            </Button>
+
+            <TextView
+                android:id="@+id/userProfileText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/verifyButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="User Profile"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/userProfilePhoto"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:src="@drawable/faceicon"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/userProfileText">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/userProfileusername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/userProfilePhoto"
+                android:text="Username"
+                android:layout_below="@id/userProfileText"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/userProfileFullNmae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/userProfilePhoto"
+                android:layout_below="@+id/userProfileusername"
+                android:text="Your Name"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/userProfileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/userProfilePhoto"
+                android:layout_below="@+id/userProfileFullNmae"
+                android:text="User Profile"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/logoutButtonWelcomePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userProfilePhoto"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:onClick="userProfileLogout"
+                android:text="LOGOUT"
+                app:backgroundTint="#4CAF50">
+
+            </Button>
+
+            <TextView
+                android:id="@+id/matchPlayed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logoutButtonWelcomePage"
+                android:text="Match Played:"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:textStyle="bold"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/noMatchPlayed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logoutButtonWelcomePage"
+                android:layout_toRightOf="@+id/matchPlayed"
+                android:layout_marginLeft="20dp"
+                android:text="0"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/matchWon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/matchPlayed"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Match Won:"
+                android:textColor="#65982A"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/noMatchWon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/matchPlayed"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/matchWon"
+                android:text="0"
+                android:textColor="#349A38"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/matchLost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/matchWon"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Match Lost:"
+                android:textColor="#C32424"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/noMatchLost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/matchWon"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/matchLost"
+                android:text="0"
+                android:textColor="#C33737"
+                android:textSize="20sp">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

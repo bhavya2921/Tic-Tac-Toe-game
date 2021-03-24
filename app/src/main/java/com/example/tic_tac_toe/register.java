@@ -121,7 +121,7 @@ public class register extends AppCompatActivity {
                             Log.d(TAG,"onSuccess: user Profile is created for "+ userID);
                         }
                     });
-                    startActivity(new Intent (getApplicationContext(),profile.class));
+                    startActivity(new Intent (getApplicationContext(),bottomNavigation.class));
                 }
                 else {
                     Toast.makeText(register.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();

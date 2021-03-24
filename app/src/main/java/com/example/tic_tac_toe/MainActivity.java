@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if(fAuthentication.getCurrentUser() != null) {
-            welcomePageRegisterButton.setVisibility(View.GONE);
-            welcomePageLoginButton.setVisibility(View.GONE);
+            Intent profileIndent = new Intent(this,bottomNavigation.class);
+            startActivity(profileIndent);
         } else {
             logoutButton.setVisibility(View.GONE);
         }
