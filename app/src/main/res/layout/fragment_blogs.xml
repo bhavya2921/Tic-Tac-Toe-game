@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlogsFragment">
+    tools:context=".BlogsFragment"
+    android:background="@drawable/bticnewn">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-6dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="80dp"
+            tools:listitem="@layout/display_item2"></androidx.recyclerview.widget.RecyclerView>
+
+        <EditText
+            android:id="@+id/blogText"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="4dp"
+            android:background="@color/white"
+            android:hint="Type Here"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="11sp"
+            android:paddingLeft="5dp">
+        </EditText>
+
+        <Button
+            android:id="@+id/postButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="17dp"
+            android:layout_toRightOf="@+id/blogText"
+            android:backgroundTint="@color/purple_500"
+            android:text="post"
+            android:textSize="15sp"
+            app:cornerRadius="70dp"></Button>
+
+
+
+
+    </RelativeLayout>
 
 </FrameLayout>

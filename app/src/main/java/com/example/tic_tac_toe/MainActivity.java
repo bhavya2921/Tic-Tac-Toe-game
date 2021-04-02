@@ -26,16 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
         //Button loginPageButton= (Button) findViewById(R.id.loginButton);
         //Button registerPageButton= (Button) findViewById(R.id.registerButton);
-        welcomePageRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRegisterPage();
-            }
-        });
+
         welcomePageLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLoginPage();
+            }
+        });
+
+        welcomePageRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRegisterPage();
             }
         });
 

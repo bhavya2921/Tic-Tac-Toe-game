@@ -63,7 +63,7 @@ public class login extends AppCompatActivity {
                             startActivity(new Intent (getApplicationContext(),bottomNavigation.class));
                         }
                         else {
-                            Toast.makeText(login.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(login.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             loginProgressBar.setVisibility(View.GONE);
                         }
 

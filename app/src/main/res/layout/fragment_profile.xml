@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:background="@drawable/bticnewn">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,11 +21,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="EMAIL NOT VERIFIED"
                 android:layout_marginTop="40dp"
-                android:visibility="invisible"
+                android:text="EMAIL NOT VERIFIED"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                android:textStyle="bold">
+                android:textStyle="bold"
+                android:visibility="invisible">
 
             </TextView>
 
@@ -49,6 +51,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="User Profile"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
@@ -58,7 +61,7 @@
                 android:id="@+id/userProfilePhoto"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
-                android:src="@drawable/faceicon"
+                android:src="@drawable/facecircle"
                 android:layout_marginLeft="20dp"
                 android:layout_below="@+id/userProfileText">
 
@@ -68,12 +71,14 @@
                 android:id="@+id/userProfileusername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/userProfileText"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
                 android:layout_toRightOf="@id/userProfilePhoto"
                 android:text="Username"
-                android:layout_below="@id/userProfileText"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="20dp"
-                android:textSize="20sp">
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -81,12 +86,15 @@
                 android:id="@+id/userProfileFullNmae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/userProfilePhoto"
                 android:layout_below="@+id/userProfileusername"
-                android:text="Your Name"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="20dp"
-                android:textSize="20sp">
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/userProfilePhoto"
+                android:text="Your Name"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -94,12 +102,15 @@
                 android:id="@+id/userProfileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/userProfilePhoto"
                 android:layout_below="@+id/userProfileFullNmae"
-                android:text="User Profile"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="20dp"
-                android:textSize="20sp">
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/userProfilePhoto"
+                android:text="User Profile"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -110,7 +121,7 @@
                 android:layout_below="@+id/userProfilePhoto"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
-                android:onClick="userProfileLogout"
+                android:onClick="userLogout"
                 android:text="LOGOUT"
                 app:backgroundTint="#4CAF50">
 
@@ -200,6 +211,18 @@
                 android:textSize="20sp">
 
             </TextView>
+
+            <Button
+                android:id="@+id/playOffline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/noMatchLost"
+                app:backgroundTint="#4CAF50"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="PLAY OFFLINE">
+            </Button>
+
 
 
         </RelativeLayout>

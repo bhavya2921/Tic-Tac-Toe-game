@@ -58,10 +58,10 @@ public class register extends AppCompatActivity {
         loginPageLink = findViewById(R.id.registerPageLoginLink);
         regisrerUserName = findViewById(R.id.registerUsername);
 
-        if(fAuthentication.getCurrentUser() != null){
+     /*   if(fAuthentication.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
-        }
+        } */
 
 
 
@@ -110,6 +110,19 @@ public class register extends AppCompatActivity {
                     });
                     Toast.makeText(register.this, "Usre Created.", Toast.LENGTH_SHORT).show();
                     userID = fAuthentication.getCurrentUser().getUid();
+
+                    DocumentReference documentReferencegame = fStore.collection("gameStatestics").document(userID);
+                    Map<String,Object> state = new HashMap<>();
+                    state.put("Gplay",0+"");
+                    state.put("Gwon",0+"");
+                    state.put("Glost",0+"");
+                    documentReferencegame.set(state).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG,"onSuccess: uploaded "+ userID);
+                        }
+                    });
+
                     DocumentReference documentReference = fStore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
                     user.put("fName",registerUserFullName);

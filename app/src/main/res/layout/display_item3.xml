@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#3E3B32"
     android:layout_marginBottom="4dp"
     android:orientation="vertical">
@@ -16,26 +16,36 @@
         android:src="@drawable/facecircle"></ImageView>
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/senderUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/image"
         android:textColor="@color/white"
         android:text="abc"
         android:textSize="15dp"></TextView>
 
     <Button
-        android:id="@+id/newGame"
+        android:id="@+id/acceptButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text"
-        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/senderUsername"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/image"
-        android:text="NEW GAME"
-        app:backgroundTint="#BAB2E872"
-        app:iconTint="#FFFFFF"></Button>
+        android:text="ACCEPT"
+        app:backgroundTint="#85C13F"></Button>
 
+    <Button
+        android:id="@+id/declineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/senderUsername"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/acceptButton"
+        android:text="DECLINE"
+        app:backgroundTint="#DC4343"></Button>
 
 </RelativeLayout>

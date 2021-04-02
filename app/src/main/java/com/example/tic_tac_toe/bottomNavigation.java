@@ -14,8 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class bottomNavigation extends AppCompatActivity {
 
+    FirebaseAuth fAuthentication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fAuthentication = FirebaseAuth.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
 
@@ -56,12 +60,15 @@ public class bottomNavigation extends AppCompatActivity {
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,selectedFragment).commit();
+
             return true;
         }
     };
     public void userLogout(View view) {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),login.class));
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
+
     }
+
 }

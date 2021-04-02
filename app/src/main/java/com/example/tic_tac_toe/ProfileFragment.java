@@ -25,18 +25,21 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 
 public class ProfileFragment extends Fragment {
 
     View fview;
-    TextView fullName,username,email,verifyText;
+    TextView fullName,username,email,verifyText,gamePlayed,gameWon,gameLost;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     FirebaseUser user;
     String userID;
-    Button resendCode;
+    public String usernameforblog;
+    Button resendCode,playOffline;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -49,15 +52,31 @@ public class ProfileFragment extends Fragment {
         fullName = fview.findViewById(R.id.userProfileFullNmae);
         username = fview.findViewById(R.id.userProfileusername);
         email = fview.findViewById(R.id.userProfileEmail);
+        playOffline = fview.findViewById(R.id.playOffline);
+        gamePlayed = fview.findViewById(R.id.noMatchPlayed);
+        gameWon = fview.findViewById(R.id.noMatchWon);
+        gameLost = fview.findViewById(R.id.noMatchLost);
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        String usergamePlayed = gamePlayed.getText().toString();
+        String usergameWon = gameWon.getText().toString();
+        String usergameLost = gameLost.getText().toString();
+
 
         userID = fAuth.getCurrentUser().getUid();
 
         resendCode = fview.findViewById(R.id.verifyButton);
         verifyText = fview.findViewById(R.id.userProfileVerificationText);
         user = fAuth.getCurrentUser();
+        playOffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(),game.class);
+                startActivity(intent);
+            }
+        });
 
         if(!user.isEmailVerified()) {
             resendCode.setVisibility(View.VISIBLE);
@@ -85,21 +104,34 @@ public class ProfileFragment extends Fragment {
             resendCode.setVisibility(View.GONE);
             verifyText.setVisibility(View.GONE);
         }
-        DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
-           @Override
+
+        DocumentReference documentReferenceget = fStore.collection("users").document(userID);
+        documentReferenceget.get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
+            @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 username.setText(documentSnapshot.getString("username"));
                 fullName.setText(documentSnapshot.getString("fName"));
                 email.setText(documentSnapshot.getString("email"));
+            }
+        });
+        DocumentReference documentReference = fStore.collection("gameStatestics").document(userID);
+        documentReference.get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
+           @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                gamePlayed.setText(documentSnapshot.getString("Gplay"));
+                gameWon.setText(documentSnapshot.getString("Gwon"));
+                gameLost.setText(documentSnapshot.getString("Glost"));
            }
         });
+
 
         return fview;
     }
     public void userProfileLogout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getActivity().getApplicationContext(),login.class));
+        fAuth.getInstance().signOut();
+
+        startActivity(new Intent(getActivity().getApplicationContext(),MainActivity.class));
         getActivity().finish();
     }
+
 }
