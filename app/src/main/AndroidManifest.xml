@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tictactoe">
-        <activity android:name=".game"></activity>
+        <activity android:name=".gameoffline"></activity>
+        <activity android:name=".game" />
         <activity android:name=".bottomNavigation" />
-        <activity android:name=".profile" />
         <activity
             android:name=".login"
             android:parentActivityName=".MainActivity" />

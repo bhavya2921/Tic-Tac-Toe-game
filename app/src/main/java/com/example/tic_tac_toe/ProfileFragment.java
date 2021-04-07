@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment {
         playOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( getContext(),game.class);
+                Intent intent = new Intent( getContext(),gameoffline.class);
                 startActivity(intent);
             }
         });

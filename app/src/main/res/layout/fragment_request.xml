@@ -12,12 +12,30 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/headingrequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="asdf">
-        </TextView>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Requests"
+            android:textColor="#D500F9"
+            android:textSize="30dp"
+            android:textStyle="italic"></TextView>
+
+        <TextView
+            android:id="@+id/noRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/headingrequest"
+            android:layout_marginTop="90dp"
+            android:text="No Requests Yet..."
+            android:textColor="#BD2C48"
+            android:textSize="30dp"
+            android:visibility="gone"></TextView>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="70dp"
             android:id="@+id/requestrecycle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

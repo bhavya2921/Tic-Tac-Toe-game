@@ -34,13 +34,45 @@
         android:id="@+id/likeButton"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_baseline_thumb_up_off_alt_24"
         android:layout_below="@+id/userBlog"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#7A090909"
         android:onClick="blogLiked"
+        android:src="@drawable/ic_baseline_thumb_up_off_alt_24">
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/userBlog"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:background="#7A090909"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_marginRight="40dp"
+        android:visibility="gone">
+    </ImageButton>
+
+
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_below="@+id/userBlog"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
         android:layout_margin="10dp">
     </ImageButton>
 
     <TextView
+        android:id="@+id/noofLIKE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"

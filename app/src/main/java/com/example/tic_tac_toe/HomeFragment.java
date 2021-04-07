@@ -1,5 +1,6 @@
 package com.example.tic_tac_toe;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,10 +21,14 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,7 +51,10 @@ public class HomeFragment extends Fragment {
     FirebaseAuth fAuth;
     String senderuserID,reciveruserID;
     FirebaseFirestore fStore;
-    boolean requestSend = false;
+    SenderModle senderModle ;
+    boolean requestSend;
+    ProductModel modle2;
+    FloatingActionButton playoffline;
 
 
 
@@ -63,6 +71,7 @@ public class HomeFragment extends Fragment {
         mFirestoreList = fview.findViewById(R.id.recycle);
         sender_STATE = "no_request";
         firebaseDatabase = FirebaseDatabase.getInstance();
+        playoffline = fview.findViewById(R.id.playOfflineButton);
 
 
 
@@ -91,33 +100,92 @@ public class HomeFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductModel model) {
                 reciveruserID = model.getUserid().trim();
-                if(!reciveruserID.trim().equals(senderuserID)){
-                holder.userName.setText(model.getUsername()); }
+                holder.userName.setText(model.getUsername());
+
+                firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+                            if (snapshot.getValue(SenderModle.class).getSenderState().equals("send")) {
+                                holder.sendRequest.setText("cancel");
+                            }
+                        } }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 holder.sendRequest.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        reciveruserID = model.getUserid();
-                        if(reciveruserID.trim().equals(senderuserID)){
-                            Toast.makeText(getContext(), "YOU ARE SENDING REQUEST TO YOURSELF BEWAKOOF", Toast.LENGTH_SHORT).show();
-                        } else {
-                        firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).setValue(new SenderModle(senderuserID,reciveruserID.trim(),"send"))
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).setValue(new SenderModle(senderuserID,reciveruserID.trim(),"received"))
+                        reciveruserID = model.getUserid().trim();
+                        if (!reciveruserID.trim().equals(senderuserID)) {
+                            firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        if (snapshot.getValue(SenderModle.class).getSenderState().equals("send")) {
+                                            holder.sendRequest.setText("new game");
+                                            firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).removeValue();
+                                            firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).removeValue();
+                                        } else {
+                                            firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).setValue(new SenderModle(senderuserID, reciveruserID.trim(), "send"))
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).setValue(new SenderModle(senderuserID, reciveruserID.trim(), "received"))
+                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            Log.d(TAG, "onSuccess: Request is send to player " + reciveruserID);
+                                                                            holder.sendRequest.setText("cancel");
+                                                                        }
+                                                                    });
+                                                        }
+                                                    });
+                                        }
+                                    } else {
+                                        firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).setValue(new SenderModle(senderuserID, reciveruserID.trim(), "send"))
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Log.d(TAG,"onSuccess: Request is send to player "+ reciveruserID);
+                                                        firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).setValue(new SenderModle(senderuserID, reciveruserID.trim(), "received"))
+                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        //  Log.d(TAG,"onSuccess: Request is send to player "+ reciveruserID);
+                                                                        holder.sendRequest.setText("cancel");
+                                                                    }
+                                                                });
                                                     }
                                                 });
                                     }
-                                }); }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            firebaseDatabase.getReference().child("abc").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
 
 
 
 
-                        /*DocumentReference documentReference = fStore.collection("senderStatus").document(senderUserId);
+
+                   /*     DocumentReference documentReference = fStore.collection("senderStatus").document(senderUserId);
                         Map<String,Object> user = new HashMap<>();
                         user.put("senderID",senderUserId);
                         user.put("reciverID",reciveruserID);
@@ -143,10 +211,11 @@ public class HomeFragment extends Fragment {
                         }); */
 
 
-
-                    }
-                });
-            }
+                        } else {
+                            Toast.makeText(getContext(), "Sorry You are sending request to yourself", Toast.LENGTH_SHORT).show();
+                        }
+                    } });
+              }
         };
 
 
@@ -159,6 +228,13 @@ public class HomeFragment extends Fragment {
 
 
         System.out.println(query);
+
+        playoffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),gameoffline.class));
+            }
+        });
         return fview;
     }
 
@@ -172,7 +248,9 @@ public class HomeFragment extends Fragment {
             userName = itemView.findViewById(R.id.text);
             sendRequest = itemView.findViewById(R.id.newGame);
         }
+
     }
+
 
     @Override
     public void onStop() {

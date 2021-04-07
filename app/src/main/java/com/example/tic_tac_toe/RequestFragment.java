@@ -39,7 +39,7 @@ public class RequestFragment extends Fragment {
 
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
-    TextView username;
+    TextView username,noRequest;
     View requestview;
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView mFirestoreList;
@@ -66,29 +66,27 @@ public class RequestFragment extends Fragment {
         reciveruserID = fAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
         recyclerView = requestview.findViewById(R.id.requestrecycle);
+        noRequest = requestview.findViewById(R.id.noRequest);
 
 
         MyAdaptor myAdaptor = new MyAdaptor(getContext(),requests);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(myAdaptor);
-        System.out.println(reciveruserID);
         firebaseDatabase.getReference().child("sendRequest").child(reciveruserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 requests.clear();
-                System.out.println(snapshot);
-                System.out.println(snapshot.exists());
                 if(snapshot.exists()){
                     for(DataSnapshot snapshot1 : snapshot.getChildren()){
                         senderModle = snapshot1.getValue(SenderModle.class);
-                        System.out.println(reciveruserID);
-                        System.out.println(senderModle.getSenderState());
-                        System.out.println(senderModle.getSenderState().equals("received"));
                         if(senderModle.getSenderState().equals("received")){
                             requests.add(senderModle);
                         }
                     }
+                }
+                if(requests.size()==0){
+                    noRequest.setVisibility(View.VISIBLE);
                 }
                 myAdaptor.notifyDataSetChanged();
             }

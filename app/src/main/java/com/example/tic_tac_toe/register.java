@@ -128,6 +128,7 @@ public class register extends AppCompatActivity {
                     user.put("fName",registerUserFullName);
                     user.put("email",registerUserId);
                     user.put("username",username);
+                    user.put("userid",userID);
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
