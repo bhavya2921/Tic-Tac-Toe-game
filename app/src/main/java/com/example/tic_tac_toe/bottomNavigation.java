@@ -48,8 +48,7 @@ public class bottomNavigation extends AppCompatActivity {
                                 System.out.println(senderModle.getSenderState());
                                 System.out.println(senderModle.getSenderState().equals("received"));
                                 if(senderModle.getSenderState().equals("accepted")){
-                                    firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).removeValue();
-                                    firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).removeValue();
+
                                     Intent intent = new Intent(getApplicationContext(),game.class);
                                     intent.putExtra("senderID",senderuserID);
                                     intent.putExtra("reciveID",reciveruserID);

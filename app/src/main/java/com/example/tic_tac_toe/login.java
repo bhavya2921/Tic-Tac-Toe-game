@@ -1,8 +1,10 @@
 package com.example.tic_tac_toe;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,9 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +28,7 @@ public class login extends AppCompatActivity {
     Button loginButton;
     ProgressBar loginProgressBar;
     FirebaseAuth loginFirebaseAuth;
+    TextView forgotpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,7 @@ public class login extends AppCompatActivity {
         loginButton = findViewById(R.id.userLoginButton);
         loginFirebaseAuth = FirebaseAuth.getInstance();
         loginProgressBar = findViewById(R.id.progressBarLogin);
+        forgotpassword = findViewById(R.id.forgotPassword);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +78,47 @@ public class login extends AppCompatActivity {
                 });
             }
         });
+
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText resetMail = new EditText(v.getContext());
+                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Reset Password ?");
+                passwordResetDialog.setMessage("Enter your email to recive reset link");
+                passwordResetDialog.setView(resetMail);
+
+                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //
+                        String mail = resetMail.getText().toString();
+                        loginFirebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(login.this, "Reset Link Sent To Your Email", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(login.this, "Error! Reset password link not sent"+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //
+                    }
+                });
+                passwordResetDialog.create().show();
+
+            }
+            }
+        );
+
     }
 
     // This method is used to open register page
@@ -78,4 +126,7 @@ public class login extends AppCompatActivity {
         Intent registerIntent = new Intent( this, register.class);
         startActivity(registerIntent);
     }
+
+
+
 }

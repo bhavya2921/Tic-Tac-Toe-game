@@ -25,7 +25,7 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/image"
         android:textColor="@color/white"
-        android:text="abc"
+        android:text="unknown"
         android:textSize="15dp"></TextView>
 
     <Button

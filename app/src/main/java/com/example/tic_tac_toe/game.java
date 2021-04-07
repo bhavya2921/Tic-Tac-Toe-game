@@ -40,7 +40,7 @@ public class game extends AppCompatActivity implements View.OnClickListener {
     FirebaseFirestore fStore;
     String userID,buttonid;
     String previoususerid,previousText = "O";
-    boolean reciverturn = true,previousidsender= true,previoustextO = true;
+    boolean reciverturn = true, previousidsender= true, previoustextO = true,reciverturnS = true, previousidsenderS= true, previoustextOS = true;
     TextView username1,username2,wintext,turnText1,turnText2;
     RelativeLayout popup;
     String senderuserID,reciveruserID,turn = "reciver";
@@ -94,6 +94,26 @@ public class game extends AppCompatActivity implements View.OnClickListener {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),bottomNavigation.class);
                 startActivity(intent);
+                firebaseDatabase.getReference().child("sendRequest").child(senderuserID).child(reciveruserID.trim()).removeValue();
+                firebaseDatabase.getReference().child("sendRequest").child(reciveruserID.trim()).child(senderuserID).removeValue();
+            }
+        });
+
+        firebaseDatabase.getReference().child("sendRequest").child(senderuserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    Toast.makeText(game.this, "Other player leaves the game", Toast.LENGTH_SHORT).show();
+                    delay(2000);
+                    Intent intent = new Intent(getApplicationContext(),bottomNavigation.class);
+                    startActivity(intent);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -122,11 +142,12 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         user0.put(R.id.button22+"","");
         user0.put("senderPoint","0");
         user0.put("reciverPoint","0");
-        user0.put("previousuesrid",senderuserID);
-        user0.put("previousText","O");
+        user0.put("previousidsender",previousidsenderS);
+        user0.put("previoustextO",previoustextOS);
         user0.put("roundcount","0");
-        user0.put("turn","reciver");
-
+        user0.put("reciverturn",reciverturnS);
+        user0.put("win","");
+    //    user0.put("previoususerid",senderuserID);
            documentReference0.set(user0).addOnSuccessListener(new OnSuccessListener<Void>() {
                @Override
                public void onSuccess(Void aVoid) {
@@ -176,6 +197,7 @@ public class game extends AppCompatActivity implements View.OnClickListener {
                     documentReference4.get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.exists()){
                             button00.setText(documentSnapshot.getString(R.id.button00+""));
                             button01.setText(documentSnapshot.getString(R.id.button01+""));
                             button02.setText(documentSnapshot.getString(R.id.button02+""));
@@ -185,21 +207,34 @@ public class game extends AppCompatActivity implements View.OnClickListener {
                             button20.setText(documentSnapshot.getString(R.id.button20+""));
                             button21.setText(documentSnapshot.getString(R.id.button21+""));
                             button22.setText(documentSnapshot.getString(R.id.button22+""));
-                            previousText = documentSnapshot.getString("previousText");
-                            previoususerid = documentSnapshot.getString("previousuesrid");
+                        //    previousText = documentSnapshot.getString("previousText");
+                        //    previoususerid = documentSnapshot.getString("previousuesrid");
                             roundCount = Integer.parseInt( documentSnapshot.getString("roundcount"));
                             senderPoint = Integer.parseInt(documentSnapshot.getString("senderPoint"));
                             reciverPoint = Integer.parseInt(documentSnapshot.getString("reciverPoint"));
                             textViewPlayer1.setText(" "+senderPoint);
                             textViewPlayer2.setText(" "+ reciverPoint);
-                            turn = documentSnapshot.getString("turn");
-                            if (turn.equals("reciver")){
+                            previousidsender = documentSnapshot.getBoolean("previousidsender");
+                            previoustextO = documentSnapshot.getBoolean("previoustextO");
+                            reciverturn = documentSnapshot.getBoolean("reciverturn");
+                        //    turn = documentSnapshot.getString("turn");
+                            if (reciverturn){
                                 turnText1.setVisibility(View.GONE);
                                 turnText2.setVisibility(View.VISIBLE);
                             } else{
                                 turnText2.setVisibility(View.GONE);
                                 turnText1.setVisibility(View.VISIBLE);
                             }
+                            if(documentSnapshot.getString("win").equals("sender")){
+                                Toast.makeText(game.this, username1.getText().toString()+" WON!", Toast.LENGTH_SHORT).show();
+                            }
+                                if((documentSnapshot.getString("win")).equals("reciver")){
+                                    Toast.makeText(game.this, username2.getText().toString()+" WON", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+
                         }
                     });
                             handler.postDelayed(this,100);
@@ -219,25 +254,30 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         System.out.println(previoususerid);
         System.out.println(userID);
 
-        if (!previoususerid.equals(userID)) {
-            if (!previousText.equals("X")){
+        if ((senderuserID.equals(userID) && !previousidsender) || (reciveruserID.equals(userID) && previousidsender)){
+      //  if (!previoususerid.equals(userID)) {
+            if (previoustextO){
             ((Button) v).setText("X");
 
             System.out.println(previousText);
             DocumentReference documentReference6 = fStore.collection("game").document(senderuserID);
-            documentReference6.update("previousText","X");
-            documentReference6.update("previousuesrid",reciveruserID);
-            documentReference6.update("turn","sender");
+            documentReference6.update("previoustextO",false);
+            documentReference6.update("previousidsender",false);
+            documentReference6.update("reciverturn",false);
+            previoustextO = false;
             previousText = "X";
+            previousidsender = false;
             previoususerid = reciveruserID;
         }
             else {
                 ((Button) v).setText("O");
                 previousText = "O";
+                previoustextO = true;
                 DocumentReference documentReference7 = fStore.collection("game").document(senderuserID);
-                documentReference7.update("previousText","O");
-                documentReference7.update("previousuesrid",senderuserID);
-                documentReference7.update("turn","reciver");
+                documentReference7.update("previoustextO",true);
+                documentReference7.update("previousidsender",true);
+                documentReference7.update("reciverturn",true);
+                previousidsender = true;
                 previoususerid = senderuserID;
                 System.out.println(previousText);
             }
@@ -252,9 +292,9 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         documentReference2.update("roundcount",roundCount+"");
 
 
-        System.out.println(checkWin() + "lllllllllllllllllllllllllllllllllllll");
         if (checkWin()) {
-            if (previoususerid.equals(senderuserID)) {
+            if (previousidsender){
+         //   if (previoususerid.equals(senderuserID)) {
                 senderWin();
             } else {
                 reciverWin();
@@ -315,15 +355,8 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         System.out.println("Sender win");
         DocumentReference documentReference2 = fStore.collection("game").document(senderuserID);
         documentReference2.update("senderPoint",(senderPoint+1)+"");
-        popup.setVisibility(View.VISIBLE);
-        if (userID.equals(senderuserID)){
-        wintext.setText("Congratulation!\n\n"+" You Won");}
-        else {
-            wintext.setText("Sorry!\n\n" + "You Lost");
-        }
+        documentReference2.update("win","sender");
         Toast.makeText(this, username1.getText().toString()+" WON!", Toast.LENGTH_LONG).show();
-        delay(2000);
-        popup.setVisibility(View.GONE);
         updatePointsText();
         resetBoard();
     }
@@ -331,25 +364,14 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         System.out.println("Reciver won");
         DocumentReference documentReference2 = fStore.collection("game").document(senderuserID);
         documentReference2.update("reciverPoint",(reciverPoint+1)+"");
-        popup.setVisibility(View.VISIBLE);
-        if (userID.equals(reciveruserID)){
-            wintext.setText("Congratulation!!\n\n"+" You Won");}
-        else {
-            wintext.setText("Sorry!!\n\n" + "You Lost");
-        }
+        documentReference2.update("win","reciver");
         Toast.makeText(this, username2.getText().toString()+" WON!", Toast.LENGTH_SHORT).show();
         //Toast.makeText(this, "PLAYER 2 WON! ", Toast.LENGTH_LONG).show();
-        delay(2000);
-        popup.setVisibility(View.GONE);
         updatePointsText();
         resetBoard();
     }
     private void draw(){
-        wintext.setVisibility(View.VISIBLE);
-        wintext.setText("DRAW!!");
         Toast.makeText(this, "MATCH DRAW! ", Toast.LENGTH_LONG).show();
-        delay(2000);
-        wintext.setVisibility(View.GONE);
         resetBoard();
     }
     private void updatePointsText(){
@@ -357,6 +379,9 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         textViewPlayer2.setText(" "+ reciverPoint);
     }
     public void resetBoard(){
+        reciverturnS = !reciverturnS;
+        previousidsenderS = !previousidsenderS;
+        previoustextOS = !previoustextOS;
         DocumentReference documentReference0 = fStore.collection("game").document(senderuserID);
         documentReference0.update(R.id.button00+"","");
         documentReference0.update(R.id.button01+"","");
@@ -367,12 +392,13 @@ public class game extends AppCompatActivity implements View.OnClickListener {
         documentReference0.update(R.id.button20+"","");
         documentReference0.update(R.id.button21+"","");
         documentReference0.update(R.id.button22+"","");
-        documentReference0.update("turn","reciver");
+        documentReference0.update("reciverturn",reciverturnS);
        // documentReference0.update("senderPoint","0");
        // documentReference0.update("reciverPoint","0");
-        documentReference0.update("previousuesrid",senderuserID);
-        documentReference0.update("previousText","O");
+        documentReference0.update("previousidsender",previousidsenderS);
+        documentReference0.update("previoustextO",previoustextOS);
         documentReference0.update("roundcount","0");
+        documentReference0.update("win","");
         roundCount = 0;
         player1Turn = true;
     }
